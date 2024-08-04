@@ -16,7 +16,7 @@ type Result struct {
 }
 
 func saveResults(terms []string, email string, domains []string) error {
-	clientOptions := options.Client().ApplyURI(os.Getenv("MONGODB_URI"))
+	clientOptions := options.Client().ApplyURI(os.Getenv("MONGODB_URI")).SetServerSelectionTimeout(10 * time.Second)
 	client, err := mongo.Connect(context.Background(), clientOptions)
 	if err != nil {
 		return err
